@@ -29,8 +29,8 @@ namespace PLProj
         {
             var builder = WebApplication.CreateBuilder(args);
             #region Stripe
-            //builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
-            //StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+            StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:secretKey").Get<string>();
     #endregion;
 
             #region ConfigureServices

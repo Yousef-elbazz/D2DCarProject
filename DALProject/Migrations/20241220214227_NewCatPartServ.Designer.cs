@@ -4,6 +4,7 @@ using DALProject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALProject.Migrations
 {
     [DbContext(typeof(CarAppDbContext))]
-    partial class CarAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241220214227_NewCatPartServ")]
+    partial class NewCatPartServ
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,6 +119,9 @@ namespace DALProject.Migrations
                     b.Property<DateTime>("EndtDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("PartServiceId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PartialReport")
                         .HasColumnType("text");
 
@@ -131,6 +137,8 @@ namespace DALProject.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DriverId");
+
+                    b.HasIndex("PartServiceId");
 
                     b.HasIndex("TechnicianId");
 
@@ -242,7 +250,9 @@ namespace DALProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
+                    b.HasIndex("AppUserId")
+                        .IsUnique()
+                        .HasFilter("[AppUserId] IS NOT NULL");
 
                     b.ToTable("Customers");
                 });
@@ -329,111 +339,6 @@ namespace DALProject.Migrations
                     b.ToTable("Models");
                 });
 
-            modelBuilder.Entity("DALProject.Models.OrdeHeader", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("ContactNumber")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DriverId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("EndtDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FinalReport")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OrderStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PaymentIntentId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PaymentStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SessionId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SessionName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("StartDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TechnicianId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("TrackingNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("DriverId");
-
-                    b.HasIndex("TechnicianId");
-
-                    b.ToTable("OrdeHeaders");
-                });
-
-            modelBuilder.Entity("DALProject.Models.OrderDetial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("OrdeHeaderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PartServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("count")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrdeHeaderId");
-
-                    b.HasIndex("PartServiceId");
-
-                    b.ToTable("OrderDetials");
-                });
-
             modelBuilder.Entity("DALProject.Models.Part", b =>
                 {
                     b.Property<int>("Id")
@@ -468,6 +373,9 @@ namespace DALProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -485,6 +393,8 @@ namespace DALProject.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarId");
 
                     b.HasIndex("ProdServCategoryId");
 
@@ -540,35 +450,6 @@ namespace DALProject.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Services");
-                });
-
-            modelBuilder.Entity("DALProject.Models.ShoppingCart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PartServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShoppingCartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("count")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("PartServiceId");
-
-                    b.ToTable("shoppingCarts");
                 });
 
             modelBuilder.Entity("DALProject.Models.Technician", b =>
@@ -820,6 +701,10 @@ namespace DALProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DALProject.Models.PartService", null)
+                        .WithMany("Appointments")
+                        .HasForeignKey("PartServiceId");
+
                     b.HasOne("DALProject.Models.Technician", "Technicians")
                         .WithMany("Appointments")
                         .HasForeignKey("TechnicianId")
@@ -868,11 +753,9 @@ namespace DALProject.Migrations
 
             modelBuilder.Entity("DALProject.Models.Customer", b =>
                 {
-                    b.HasOne("DALProject.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
-
-                    b.Navigation("AppUser");
+                    b.HasOne("DALProject.Models.AppUser", null)
+                        .WithOne()
+                        .HasForeignKey("DALProject.Models.Customer", "AppUserId");
                 });
 
             modelBuilder.Entity("DALProject.Models.Driver", b =>
@@ -906,55 +789,21 @@ namespace DALProject.Migrations
                     b.Navigation("Brand");
                 });
 
-            modelBuilder.Entity("DALProject.Models.OrdeHeader", b =>
-                {
-                    b.HasOne("DALProject.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DALProject.Models.Driver", "Driver")
-                        .WithMany()
-                        .HasForeignKey("DriverId");
-
-                    b.HasOne("DALProject.Models.Technician", "Technician")
-                        .WithMany()
-                        .HasForeignKey("TechnicianId");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Driver");
-
-                    b.Navigation("Technician");
-                });
-
-            modelBuilder.Entity("DALProject.Models.OrderDetial", b =>
-                {
-                    b.HasOne("DALProject.Models.OrdeHeader", "OrdeHeader")
-                        .WithMany()
-                        .HasForeignKey("OrdeHeaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DALProject.Models.PartService", "PartService")
-                        .WithMany()
-                        .HasForeignKey("PartServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OrdeHeader");
-
-                    b.Navigation("PartService");
-                });
-
             modelBuilder.Entity("DALProject.Models.PartService", b =>
                 {
+                    b.HasOne("DALProject.Models.Car", "Cars")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DALProject.Models.ProdServCategory", "ProdServCategory")
                         .WithMany()
                         .HasForeignKey("ProdServCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Cars");
 
                     b.Navigation("ProdServCategory");
                 });
@@ -968,25 +817,6 @@ namespace DALProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("DALProject.Models.ShoppingCart", b =>
-                {
-                    b.HasOne("DALProject.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DALProject.Models.PartService", "PartService")
-                        .WithMany()
-                        .HasForeignKey("PartServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("PartService");
                 });
 
             modelBuilder.Entity("DALProject.Models.Technician", b =>
@@ -1134,6 +964,11 @@ namespace DALProject.Migrations
             modelBuilder.Entity("DALProject.Models.Model", b =>
                 {
                     b.Navigation("Cars");
+                });
+
+            modelBuilder.Entity("DALProject.Models.PartService", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("DALProject.Models.Service", b =>

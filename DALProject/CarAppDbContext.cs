@@ -52,6 +52,13 @@ namespace DALProject
         public DbSet<Color> Colors{ get; set; }
         public DbSet<Part> Parts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<ProdServCategory> prodServCategories { get; set; }
+        public DbSet<PartService> partServices { get; set; }
+        public DbSet<ShoppingCart> shoppingCarts{ get; set; }
+        public DbSet<OrderDetial> OrderDetials{ get; set; }
+        public DbSet<OrdeHeader> OrdeHeaders{ get; set; }
+        
+
 
         #region TPC
         public DbSet<Customer> Customers { get; set; }

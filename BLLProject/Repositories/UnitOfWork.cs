@@ -15,7 +15,9 @@ namespace BLLProject.Repositories
     {
         private readonly CarAppDbContext dbContext;
         private Hashtable _repository;
-
+        public IShoppingCart shoppingCart { get; private set; }
+         public IOrderDetialsRepository orderDetialsRepository { get; private set; }
+        public IOrderHeaderRepository orderHeaderRepository { get; private set; }
         // we need here saveChanges and inject dbcontext
 
         public UnitOfWork(CarAppDbContext dbContext)
@@ -24,6 +26,9 @@ namespace BLLProject.Repositories
             this.dbContext = dbContext;
 
             _repository = new Hashtable();
+            shoppingCart = new ShoppingCartRepo(dbContext);
+            orderDetialsRepository = new OrderDetailsRepo(dbContext);
+            orderHeaderRepository = new OrderHeaderRepo(dbContext);
 
         }
 

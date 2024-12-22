@@ -8,6 +8,7 @@ namespace DALProject.Models
     {
         public virtual ICollection<Car> Cars { get; set; } = new HashSet<Car>();
         public string AppUserId { get; set; }
-        public virtual ICollection<CartItem> CartItems { get; set; } = new HashSet<CartItem>();
+        public virtual AppUser AppUser { get; set; }
+        public virtual ICollection<CartItem>? CartItems { get; set; } = new HashSet<CartItem>();
     }
 }

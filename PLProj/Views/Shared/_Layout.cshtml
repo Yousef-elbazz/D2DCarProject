@@ -177,6 +177,10 @@
 										<a class="nav-link" asp-action="Parts" asp-controller="Parts">Parts</a>
 									</li>
 									<li class="nav-item">
+										<a class="nav-link" asp-action="Index" asp-controller="CustomerPS">PS</a>
+									</li>
+
+									<li class="nav-item">
 										<a class="nav-link" asp-action="Index" asp-controller="Cart">
 											<!-- الزر الدائري مع الأيقونة -->
 											<button class="btn btn-dark rounded-circle"
@@ -187,6 +191,19 @@
 											
 										</a>
 									</li>
+
+									<form class="d-flex align-items-center">
+										<a href="/NewCart/Index" class="nav-link text-decoration-none">
+											<!-- الزر الدائري مع الأيقونة -->
+											<button class="btn btn-light rounded-circle shadow-sm position-relative"
+													style="border: 1px solid #ccc; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;">
+												<i class="fas fa-shopping-cart text-dark" style="font-size: 24px;"></i>
+												<!-- عداد السلة داخل الزر -->
+												<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+													  style="font-size: 12px; padding: 5px 7px;">0</span>
+											</button>
+										</a>
+									</form>
 
 
 									

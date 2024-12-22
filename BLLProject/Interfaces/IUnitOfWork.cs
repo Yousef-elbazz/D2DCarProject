@@ -11,8 +11,11 @@ namespace BLLProject.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IGenericRepository<T> Repository<T>() where T : ModelClass;
+        IShoppingCart shoppingCart { get; }
+        IOrderDetialsRepository orderDetialsRepository { get; }
+        IOrderHeaderRepository orderHeaderRepository { get; }
 
-       abstract int Complete();
+        abstract int Complete();
 		
 	}
 }

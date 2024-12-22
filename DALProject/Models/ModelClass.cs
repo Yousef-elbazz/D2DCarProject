@@ -8,6 +8,6 @@ namespace DALProject.Models
 {
     public class ModelClass
     {
-        public int Id { get; set; }
+        public  virtual int Id { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,6 +55,45 @@ namespace BLLProject.Repositories
         public IEnumerable<T> GetAllWithSpec(ISpecification<T> spec) =>
              SpecificationEvalutor<T>.GetQuery(dbContect.Set<T>(), spec).AsNoTracking().ToList();
 
-       
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate = null, string Includes = null)
+        {
+            IQueryable<T> query = dbContect.Set<T>();
+            if (predicate != null)
+            {
+
+                query = query.Where(predicate);
+            }
+            if (Includes != null)
+            {
+                foreach (var item in Includes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(item);
+                }
+            }
+            return query.ToList();
+        }
+
+        public T GetFirstOrDefault(Expression<Func<T, bool>> predicate = null, string Includes = null)
+        {
+            IQueryable<T> query = dbContect.Set<T>();
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+            if (Includes != null)
+            {
+                foreach (var item in Includes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(item);
+                }
+            }
+            return query.FirstOrDefault();
+
+        }
+
+        public void RemoveRange(IEnumerable<T> entities)
+        {
+            dbContect.Set<T>().RemoveRange(entities);
+        }
     }
 }

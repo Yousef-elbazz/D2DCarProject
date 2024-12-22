@@ -1,0 +1,170 @@
+﻿@model ShoppingCartVM
+@using Microsoft.Extensions.Options
+@inject IOptions<StripeSettings> Stripe
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Customer Information -->
+        <div class="form-section">
+            <h2>Billing Address</h2>
+            <form method="post" asp-action="Summary" asp-controller="NewCart">
+                <input hidden asp-for="OrdeHeader.Customer.AppUserId" />
+
+                <label class="text-muted">Name</label>
+                <input asp-for="OrdeHeader.Name" type="text" class="form-control">
+                <span asp-validation-for="OrdeHeader.Name"></span>
+
+                <label class="text-muted">City</label>
+                <input asp-for="OrdeHeader.City" type="text" class="form-control">
+                <span asp-validation-for="OrdeHeader.City"></span>
+
+                <label class="text-muted">Phone Number</label>
+                <input asp-for="OrdeHeader.ContactNumber" type="text" class="form-control">
+                <span asp-validation-for="OrdeHeader.ContactNumber"></span>
+
+                <label class="text-muted">Address</label>
+                <input asp-for="OrdeHeader.Street" type="text" class="form-control">
+                <span asp-validation-for="OrdeHeader.Street"></span>
+
+               
+               
+                <!-- Order Button -->
+                <div class="row pt-lg-3 pt-2 buttons mb-sm-0 mb-2" style="width:500px">
+                    <div class="col-md-6">
+                        <a href="\NewCart\Index" class="btn btn-secondary text-uppercase">Back to Shopping</a>
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+                        <button type="submit" id="placeOrderBtn" class="btn btn-primary btn-lg btn-block">Place Order</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="cart-summary">
+            <h2>Cart Summary</h2>
+            <div class="summary-box">
+                @foreach (var item in Model.CartList)
+                {
+                    <div class="d-flex justify-content-between align-items-center pt-3 pb-2 border-bottom">
+                        <div class="item pr-2">
+                            <img src="~/@item.PartService.Img" alt="Part Image" width="80" height="80">
+                            <div class="number">@item.count</div>
+                        </div>
+                        <div class="d-flex flex-column px-3">
+                            <b class="h5">@item.PartService.Name</b>
+                        </div>
+                        <div class="ml-auto">
+                            <b class="h5">$@item.PartService.Price</b>
+                        </div>
+                    </div>
+                }
+
+                <!-- Total Price -->
+                <div class="d-flex align-items-center py-2">
+                    <div class="display-5">Total</div>
+                    <div class="ml-auto d-flex">
+                        <div class="text-primary text-uppercase px-3">USD</div>
+                        <div class="font-weight-bold">$@Model.OrdeHeader.TotalPrice</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .form-section {
+            flex: 0 0 65%;
+            margin-right: 2%;
+        }
+
+        .cart-summary {
+            flex: 0 0 30%;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .summary-box {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #218838;
+            }
+    </style>
+</body>
+</html>

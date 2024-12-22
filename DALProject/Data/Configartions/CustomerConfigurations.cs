@@ -39,7 +39,7 @@ namespace DALProject.Data.Configurations
 
             
 
-            builder.HasOne<AppUser>().WithOne().HasForeignKey<Customer>(e => e.AppUserId);
+            //builder.HasOne<AppUser>().WithOne().HasForeignKey<Customer>(e => e.AppUserId);
         }
     }
 }
