@@ -1,0 +1,137 @@
+﻿@model IEnumerable<OrderDetial>
+@{
+    Layout = "_Layout";
+}
+
+<div class="cart-summary container my-5 p-4 shadow-lg rounded bg-white">
+    <h2 class="text-center font-weight-dark mb-4 text-dark">Order Details</h2>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">No details found for this order.</p>
+    }
+    else
+    {
+        <div class="summary-box">
+            @foreach (var item in Model)
+            {
+                <div class="d-flex justify-content-between align-items-center py-3 border-bottom mb-2 rounded shadow-sm">
+                    <!-- Item Image and Quantity -->
+                    <div class="item d-flex align-items-center pr-3">
+                        <div class="image-container rounded shadow-sm overflow-hidden">
+                            <img src="~/@item.PartService.Img" alt="Part Image" class="img-fluid" width="100" height="100"> <!-- Increased image size -->
+                        </div>
+                        <div class="number badge bg-dark text-white ms-3 p-3" style="font-size: 1.2rem;">@item.count</div> <!-- Increased size and white color for count -->
+                    </div>
+
+                    <!-- Item Details -->
+                    <div class="d-flex flex-column px-3">
+                        <b class="h5 text-white">@item.PartService.Name</b>
+                        <small class="text-white">Part ID: @item.PartService.Id</small> <!-- Changed Part ID color to white -->
+                    </div>
+
+                    <!-- Item Price -->
+                    <div class="ml-auto">
+                        <b class="h5 text-white">$@item.Price</b>
+                    </div>
+                </div>
+            }
+
+            <!-- Total Price -->
+            <div class="d-flex justify-content-between align-items-center py-3 mt-4 border-top">
+                <div class="display-5 text-white">Total</div>
+                <div class="d-flex align-items-center">
+                    <span class="text-uppercase text-light px-2 font-weight-bold">USD</span>
+                    <span class="font-weight-bold text-white h3">
+                        $@Model.FirstOrDefault()?.OrdeHeader.TotalPrice
+                    </span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="text-center mt-4">
+    <a href="/NewCart/MyOrders" class="btn btn-outline-light btn-lg">
+        Back to My Orders
+    </a>
+     <a href="/CustomerPS/Index" class="btn btn-outline-light btn-lg">
+        Back to Home
+    </a>
+
+</div>
+</div>
+
+<style>
+    .bg-dark {
+        background-color: #000000 !important;
+    }
+
+    .summary-box {
+        background-color: #1c1c1c;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .cart-summary h2 {
+        font-family: 'Arial', sans-serif;
+        font-size: 2rem;
+        color: #ffffff;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .cart-summary .item img {
+        transition: transform 0.3s ease;
+        width: 100px;
+        height: 100px;
+    }
+
+        .cart-summary .item img:hover {
+            transform: scale(1.1);
+        }
+
+    .cart-summary .image-container {
+        border: 3px solid #1c1c1c;
+        padding: 5px;
+        background-color: #333333;
+        border-radius: 10px;
+    }
+
+    .cart-summary .number {
+        background-color: #666666;
+        color: white;
+        padding: 12px;
+        font-size: 1.2rem; /* Increased font size for the count */
+        border-radius: 50%;
+    }
+
+    .cart-summary .display-5 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .cart-summary .text-light {
+        color: #ffffff !important;
+    }
+
+    .cart-summary .text-white {
+        color: #ffffff !important;
+    }
+
+    .cart-summary .font-weight-bold {
+        font-weight: 600;
+    }
+
+    .cart-summary .border-bottom {
+        border-color: #444444 !important;
+    }
+
+    .cart-summary .shadow-lg {
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .cart-summary .text-muted {
+        color: #b0b0b0;
+    }
+</style>

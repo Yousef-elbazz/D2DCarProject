@@ -4,6 +4,7 @@ using DALProject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALProject.Migrations
 {
     [DbContext(typeof(CarAppDbContext))]
-    partial class CarAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241222205210_Stripee")]
+    partial class Stripee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -912,7 +915,7 @@ namespace DALProject.Migrations
             modelBuilder.Entity("DALProject.Models.OrdeHeader", b =>
                 {
                     b.HasOne("DALProject.Models.Customer", "Customer")
-                        .WithMany("OrdeHeaders")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1127,8 +1130,6 @@ namespace DALProject.Migrations
                     b.Navigation("Cars");
 
                     b.Navigation("CartItems");
-
-                    b.Navigation("OrdeHeaders");
                 });
 
             modelBuilder.Entity("DALProject.Models.Driver", b =>

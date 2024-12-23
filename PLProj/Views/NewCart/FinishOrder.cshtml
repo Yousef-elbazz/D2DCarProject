@@ -1,0 +1,30 @@
+﻿@model OrdeHeader
+
+@{
+    ViewData["Title"] = "Finish Order";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Finish Order @Model.Id</h2>
+
+    <form asp-action="FinishOrder" method="post" class="bg-light p-4 rounded shadow-sm">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-4">
+            <label asp-for="EndtDateTime" class="form-label">End Date & Time</label>
+            <input asp-for="EndtDateTime" class="form-control" type="datetime-local" />
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="FinalReport" class="form-label">Final Report</label>
+            <textarea asp-for="FinalReport" class="form-control" rows="4" placeholder="Enter the final report details here..."></textarea>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success">Finish Order</button>
+            <a asp-action="MyOrdersForTechnician" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+

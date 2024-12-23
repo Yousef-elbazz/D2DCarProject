@@ -1,0 +1,240 @@
+﻿@model OrderVM
+@{
+    var TechnicianList = ViewData["Technicain"] as SelectList;
+    var DriverList = ViewData["Driver"] as SelectList;
+    ViewData["Title"] = "Edit";
+}
+@if (TempData["Message"] is not null)
+{
+    <div id="successMessage" class="alert alert-success mt-4">
+        <h3>@TempData["Message"]</h3>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            var successMessage = document.getElementById("successMessage");
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+        }, 3000);
+    </script>
+}
+
+<form method="post">
+    <div class="container">
+        <div>
+            <input hidden asp-for="OrdeHeader.Id" />
+            
+            <div class="container rounded p-4 shadow-sm">
+                <div class="row">
+                    <div class="col-12 col-lg-6 pb-4">
+                        <div class="row">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span style="font-size:large; font-weight: bold;">PickUp Details</span>
+                            </div>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-3">Name</div>
+                            <div class="col-9">
+                                <input asp-for="OrdeHeader.Name" type="text" class="form-control rounded-3" />
+                                <span asp-validation-for="OrdeHeader.Name" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-3">Phone</div>
+                            <div class="col-9">
+                                <input asp-for="OrdeHeader.ContactNumber" type="text" class="form-control rounded-3" />
+                                <span asp-validation-for="OrdeHeader.ContactNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-3">Address</div>
+                            <div class="col-9">
+                                <input asp-for="OrdeHeader.Street" type="text" class="form-control rounded-3" />
+                                <span asp-validation-for="OrdeHeader.Street" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-3">City</div>
+                            <div class="col-9">
+                                <input asp-for="OrdeHeader.City" type="text" class="form-control rounded-3" />
+                                <span asp-validation-for="OrdeHeader.City" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-3">Email</div>
+                            <div class="col-9">
+                                <input asp-for="OrdeHeader.Customer.AppUser.Email" readonly type="text" class="form-control rounded-3" />
+                                <span asp-validation-for="OrdeHeader.Customer.AppUser.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-3">Order Date</div>
+                            <div class="col-9">
+                                <input value="@Model.OrdeHeader.OrderDate.ToShortDateString()" readonly type="text" class="form-control rounded-3" />
+                            </div>
+                        </div>
+                         <div class="row my-3">
+                            <div class="col-3">Payment Date</div>
+                            <div class="col-9">
+                                <input value="@Model.OrdeHeader.PaymentDate.ToShortDateString()" readonly type="text" class="form-control rounded-3" />
+                            </div>
+                        </div>
+
+                        <!-- Line Separator -->
+                        <hr class="my-4" style="border-top: 2px solid #343a40;">
+
+                        <!-- Technician and Driver Selection -->
+                        <div class="row my-3">
+                            <label asp-for="@Model.OrdeHeader.TechnicianId" class="control-label"></label>
+                            <select asp-for="@Model.OrdeHeader.TechnicianId" asp-items="TechnicianList" class="form-control rounded-3">
+                                <option value="@null">--Select Technician--</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.OrdeHeader.DriverId" class="form-label"></label>
+                            <select class="form-control rounded-3" asp-for="@Model.OrdeHeader.DriverId" asp-items="DriverList" required>
+                                <option value="@null"> --Select Driver-- </option>
+                            </select>
+                            <span asp-validation-for="@Model.OrdeHeader.DriverId" class="text-danger"></span>
+                        </div>
+
+                        <div class="row my-3">
+                            <label asp-for="@Model.OrdeHeader.StartDateTime" class="font-weight-bold"></label>
+                            <input asp-for="@Model.OrdeHeader.StartDateTime" class="form-control rounded-3" placeholder="Enter your Start Date Time" />
+                            <span asp-validation-for="@Model.OrdeHeader.StartDateTime" class="text-danger"></span>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-3">Tracking Number</div>
+                            <div class="col-9">
+                                <input asp-for="OrdeHeader.TrackingNumber" id="Tracking" type="text" class="form-control rounded-3" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary Section -->
+                    <div class="col-12 col-lg-5 offset-lg-1">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span style="font-weight: bold;">Order Summary</span>
+                        </h4>
+                        <label class="btn btn-outline-dark form-control my-2">Order Status - @Model.OrdeHeader.OrderStatus</label>
+                        <ul class="list-group mb-3">
+                            @foreach (var item in Model.OrderDetials)
+                            {
+                                <li class="list-group-item d-flex justify-content-between p-3">
+                                    <div class="row container">
+                                        <div class="col-8">
+                                            <h6 class="my-0 text-Dark">@item.PartService.ProdServCategory.Name</h6>
+                                            <h6 class="my-0 text-dark">@item.PartService.Name</h6>
+                                            <small class="text-muted">Price : @item.PartService.Price</small><br />
+                                            <small class="text-muted">Quantity : @item.count </small>
+                                        </div>
+                                        <div class="col-4 text-end">
+                                            <p class="text-success">@((item.count * item.Price).ToString("c"))</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            <!-- Add Total as a Button -->
+                            <li class="list-group-item bg-dark">
+                                
+                                    <div class="col-6">
+                                        <h5 class="text-white">TOTAL</h5>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <div class="total-box">
+                                            <p class="text-white m-0">@Model.OrdeHeader.TotalPrice.ToString("c")</p>
+                                        </div>
+                                    </div>
+                                
+                            </li>
+                        </ul>
+
+                        <!-- Order Action Buttons -->
+                        @if (Model.OrdeHeader.OrderStatus == SD.Approve)
+                        {
+                            <input asp-action="StartProcess" type="submit" class="btn btn-dark w-100" value="Start Process" />
+                        }
+                        @if (Model.OrdeHeader.OrderStatus == SD.Proccessing)
+                        {
+                            <input asp-action="StartShip" onclick="return CheckData()" type="submit" class="btn btn-success w-100" value="Start Shipping" />
+                        }
+                        @if (Model.OrdeHeader.OrderStatus != SD.Cancelled || Model.OrdeHeader.OrderStatus != SD.Refund)
+                        {
+                            <input asp-action="CancelOrder" type="submit" class="btn btn-danger w-100" value="Cancel Order" />
+                        }
+                    </div>
+                </div>
+
+                <!-- Update Pickup Details Button -->
+                <div class="row my-3">
+                    <div class="col-12">
+                        <input asp-action="Details" type="submit" class="btn btn-dark w-100" value="Update Pickup Details" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Link to Custom Font -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Add styles -->
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f4f9;
+    }
+
+    .container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-dark {
+        background-color: #343a40;
+        border-color: #343a40;
+    }
+
+        .btn-dark:hover {
+            background-color: #23272b;
+        }
+
+    .form-control {
+        border-radius: 5px;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .total-box {
+        background-color: #343a40;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+        .total-box p {
+            font-size: 1.2em;
+        }
+
+    .btn-success, .total-box {
+        font-weight: bold;
+    }
+</style>

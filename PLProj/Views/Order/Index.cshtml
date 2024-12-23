@@ -1,0 +1,36 @@
+﻿@model List<OrdeHeader>
+<div class="container mt-5">
+    <!-- رسالة النجاح -->
+  
+
+<table class="table table-hover" width="100%">
+    <thead>
+        <tr>
+            
+            <th>Name</th>
+            <th>PhoneNumber</th>           
+            <th>OrderStatus</th>
+            <th>OrderTotal</th>
+            <th>Details</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                
+                <td>@product.Customer.AppUser.Name</td>
+                <td>@product.Customer.AppUser.ContactNumber</td>
+                <td>@product.OrderStatus</td>
+                <td>@product.TotalPrice</td>
+                <td>
+                    <a asp-action="Details" asp-controller="Order" asp-route-id="@product.Id" class="btn btn-dark">Edit</a>
+                </td>
+              
+            </tr>
+        }
+    </tbody>
+</table>
+
+

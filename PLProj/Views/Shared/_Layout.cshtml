@@ -110,13 +110,13 @@
 								
 								@if (User.IsInRole("Admin"))
 								{
-									<li class="nav-item">
+									@* <li class="nav-item">
 										<a class="nav-link" asp-action="Index" asp-controller="Services"> Services </a>
-									</li>
+									</li> *@
 									
-									<li class="nav-item">
+									@* <li class="nav-item">
 										<a class="nav-link" asp-action="AllTicket" asp-controller="Ticket"> Tickets</a>
-									</li>
+									</li> *@
 									<li class="nav-item">
 										<a class="nav-link" asp-action="Index" asp-controller="Brand"> Brands</a>
 									</li>
@@ -132,11 +132,15 @@
 									<li class="nav-item">
 										<a class="nav-link" asp-action="Index" asp-controller="Customer"> Customers</a>
 									</li>
-									<li class="nav-item">
+									@* <li class="nav-item">
 										<a class="nav-link" asp-action="Index" asp-controller="Parts"> Parts</a>
-									</li>
+									</li> *@
 									<li class="nav-item">
 										<a class="nav-link" asp-action="Index" asp-controller="Color"> Colors</a>
+									</li>
+									
+									<li class="nav-item">
+										<a class="nav-link" asp-action="Index" asp-controller="Order"> Orders</a>
 									</li>
 									
 									
@@ -149,8 +153,11 @@
 								{
 									
 									
-									<li class="nav-item">
+									@* <li class="nav-item">
 										<a class="nav-link" asp-action="AssignedTechnicainTicket" asp-controller="Ticket">  Tickets </a>
+									</li> *@
+									<li class="nav-item">
+										<a class="nav-link" asp-action="MyOrdersForTechnician" asp-controller="NewCart">  Orders </a>
 									</li>
 
 									
@@ -166,21 +173,24 @@
 									</li>
 									@* <li class="nav-item">
 									<a asp-action="CreateTicketbyCustomer" asp-controller="Ticket">Add Service</a>
-									</li> *@
-									<li class="nav-item">
+									@* </li> *@
+									@* <li class="nav-item">
 										<a class="nav-link" asp-action="MyTicket" asp-controller="Ticket">My Tickets</a>
-									</li>
-									<li class="nav-item">
+							</li>*@
+									@* <li class="nav-item">
 										<a class="nav-link" asp-action="AddTicket" asp-controller="Ticket">Add Ticket</a>
-									</li>
-									<li class="nav-item">
+							</li> *@
+								@* 	<li class="nav-item">
 										<a class="nav-link" asp-action="Parts" asp-controller="Parts">Parts</a>
+									</li>  *@
+									<li class="nav-item">
+										<a class="nav-link" asp-action="Index" asp-controller="CustomerPS">Products</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" asp-action="Index" asp-controller="CustomerPS">PS</a>
+										<a class="nav-link" asp-action="MyOrders" asp-controller="NewCart">My Orders</a>
 									</li>
 
-									<li class="nav-item">
+									@* <li class="nav-item">
 										<a class="nav-link" asp-action="Index" asp-controller="Cart">
 											<!-- الزر الدائري مع الأيقونة -->
 											<button class="btn btn-dark rounded-circle"
@@ -190,7 +200,7 @@
 											<!-- عرض العدد داخل السلة (تحديث العدد حسب القيمة الحقيقية) -->
 											
 										</a>
-									</li>
+									</li> *@
 
 									<form class="d-flex align-items-center">
 										<a href="/NewCart/Index" class="nav-link text-decoration-none">
@@ -211,8 +221,11 @@
 								}
 
 								 @if (User.IsInRole("Driver"))
-								 {  <li class="nav-item">
+								 {  @* <li class="nav-item">
 										<a class="nav-link" asp-action="AssignedDriverTicket" asp-controller="Ticket"> Tickets</a>
+									</li> *@
+									<li class="nav-item">
+										<a class="nav-link" asp-action="MyOrdersForDriver" asp-controller="NewCart">  Orders </a>
 									</li>
 
 								 }

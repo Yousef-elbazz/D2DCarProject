@@ -15,6 +15,7 @@ namespace DALProject.Models
         
         public DateTime LicenseExpDate { get; set; }
         public virtual ICollection<Appointment> Appointments { get; set; } = new HashSet<Appointment>();
+        public virtual ICollection<OrdeHeader> OrdeHeaders { get; set; } = new HashSet<OrdeHeader>();
     }
    
 

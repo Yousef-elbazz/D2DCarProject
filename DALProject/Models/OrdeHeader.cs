@@ -22,6 +22,7 @@ namespace DALProject.Models
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndtDateTime { get; set; }
         public DateTime PaymentDate { get; set; }
+        public DateTime? ShippingDate { get; set; }
         public int? TechnicianId { get; set; }
         public int? DriverId { get; set; }
         [ValidateNever]

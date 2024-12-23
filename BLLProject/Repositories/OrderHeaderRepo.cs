@@ -23,6 +23,7 @@ namespace BLLProject.Repositories
         {
            var orderfromdb = _context.OrdeHeaders.FirstOrDefault(x => x.Id == id);
             orderfromdb.OrderStatus = OrderStatus;  
+            orderfromdb.PaymentDate = DateTime.Now;  
             if(PaymentStatus != null)
             {
                 orderfromdb.PaymentStatus = PaymentStatus;
