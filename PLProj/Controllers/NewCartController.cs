@@ -1,18 +1,15 @@
 ﻿using BLLProject.Interfaces;
-using BLLProject.Repositories;
 using BLLProject.Specifications;
 using DALProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PLProj.Models;
-
 using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 
@@ -107,31 +104,24 @@ namespace PLProj.Controllers
         public async Task<IActionResult> Summary()
         {
             var _user = await _userManager.GetUserAsync(User);
-
-
             var customerSpec = new BaseSpecification<Customer>(c => c.AppUserId == _user.Id);
-
-
+            customerSpec.Includes.Add(e => e.Cars);
             var customer = _unitOfWork.Repository<Customer>().GetEntityWithSpec(customerSpec);
-
-
             if (customer == null)
             {
                 TempData["error"] = "Customer not found.";
                 return RedirectToAction("Error");
             }
 
-
             ShoppingCartVM cartVM = new ShoppingCartVM
             {
                 CartList = _unitOfWork.shoppingCart.GetAll(
                     d => d.CustomerId == customer.Id,
-                    Includes: "PartService"
-                ),
+                    Includes: "PartService" ),
+                
                 OrdeHeader = new(),
-
-
             };
+
             cartVM.OrdeHeader.Customer = _unitOfWork.Repository<Customer>().GetFirstOrDefault(x => x.Id == customer.Id);
             if (cartVM.OrdeHeader != null && cartVM.OrdeHeader.Customer != null && cartVM.OrdeHeader.Customer.AppUser != null)
             {
@@ -150,6 +140,8 @@ namespace PLProj.Controllers
             {
                 cartVM.OrdeHeader.TotalPrice += (item.count * item.PartService.Price);
             }
+            ViewData["CarList"] = new SelectList( _unitOfWork.Repository<Car>().GetAll(c => c.CustomerId == customer.Id)
+                .Select(e => new { Id = e.Id, Name = e.PlateNumber }),"Id" ,"Name");
 
             return View(cartVM);
         }
@@ -172,6 +164,7 @@ namespace PLProj.Controllers
             shoppingCartVM.OrdeHeader.PaymentStatus = SD.Pending;
             shoppingCartVM.OrdeHeader.OrderDate = DateTime.Now;
             shoppingCartVM.OrdeHeader.Customer = customer;
+            
 
 
             foreach (var item in shoppingCartVM.CartList)

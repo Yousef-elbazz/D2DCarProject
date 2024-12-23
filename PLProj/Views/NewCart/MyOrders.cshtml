@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<OrdeHeader>
 
 <div class="orders-summary container my-5 p-4 shadow-lg rounded bg-white">
-    <h2 class="text-center font-weight-bold mb-4 text-dark">Orders</h2>
+    
+
+            <h1 class="text-center text-black fw-bold">Orders</h1>
+            <h3 class="text-center text-black mb-4">Your Recent Orders</h3>
 
     @if (!Model.Any())
     {
@@ -38,62 +41,52 @@
         </div>
     }
 </div>
+</div>
+</div>
+</div>
 
 <!-- CSS Styling -->
 <style>
-    .orders-summary {
-        background-color: #ffffff;
-        border-radius: 10px;
+    /* تحسين الكارت الكبير */
+    .large-card {
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        background-color: #fff;
+        color: black;
         padding: 20px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
-        .orders-summary h2 {
-            font-family: 'Arial', sans-serif;
-            font-size: 2rem;
-            color: #000000;
-            text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.5);
-        }
-
-    .table-responsive {
-        overflow-x: auto;
+    /* تحسين العناوين */
+    h1, h3 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: black;
     }
 
-    .table-light {
+    /* تحسين الجدول */
+    .table-hover tbody tr:hover {
         background-color: #f8f9fa;
-        color: #000000;
     }
 
-        .table-light th, .table-light td {
-            padding: 15px;
-            text-align: center;
-        }
+    .table-dark {
+        background-color: #343a40;
+        color: #fff;
+    }
 
-        .table-light th {
+        .table-dark th {
             font-weight: bold;
-            color: #000000;
         }
 
-        .table-light td {
-            color: #000000;
-        }
-
-    .btn-outline-dark {
-        color: #000000;
-        border: 2px solid #000000;
-        padding: 8px 16px;
-        font-size: 1rem;
-        border-radius: 5px;
-        text-decoration: none;
-        transition: background-color 0.3s, color 0.3s;
+    /* تحسين الأزرار */
+    .btn-dark {
+        background: linear-gradient(to right, #000, #444);
+        border: none;
+        color: #fff;
+        transition: all 0.3s ease-in-out;
     }
 
-        .btn-outline-dark:hover {
-            background-color: #000000;
-            color: #ffffff;
+        .btn-dark:hover {
+            background: linear-gradient(to right, #444, #000);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
-
-    .text-muted {
-        color: #6c757d !important;
-    }
 </style>

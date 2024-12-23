@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace DALProject.Models
 {
-    public class OrdeHeader :ModelClass
+    public class OrdeHeader : ModelClass
     {
         public int CustomerId { get; set; }
         [ValidateNever]
-        public  virtual Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; }
         public DateTime OrderDate { get; set; }
         public decimal TotalPrice { get; set; }
-        public string?  OrderStatus { get; set; }
-        public string?  PaymentStatus { get; set; }
+        public string? OrderStatus { get; set; }
+        public string? PaymentStatus { get; set; }
         public string TrackingNumber { get; set; }
         public string? FinalReport { get; set; } = null!;
         public DateTime? StartDateTime { get; set; }
@@ -39,8 +39,8 @@ namespace DALProject.Models
         public string City { get; set; }
         public string Street { get; set; }
         public long ContactNumber { get; set; }
-         
-
+        public virtual Car Car { get; set; }
+        public int? CarId { get; set; }
 
     }
 }

@@ -4,6 +4,7 @@ using DALProject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALProject.Migrations
 {
     [DbContext(typeof(CarAppDbContext))]
-    partial class CarAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241223170132_Car2")]
+    partial class Car2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -337,8 +340,8 @@ namespace DALProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CarId")
-                        .HasColumnType("int");
+                    b.Property<string>("Car")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -395,15 +398,12 @@ namespace DALProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasPrecision(8, 2)
-                        .HasColumnType("decimal(8,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("TrackingNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CarId");
 
                     b.HasIndex("CustomerId");
 
@@ -429,8 +429,7 @@ namespace DALProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(8, 2)
-                        .HasColumnType("decimal(8,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("count")
                         .HasColumnType("int");
@@ -489,8 +488,7 @@ namespace DALProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(8, 2)
-                        .HasColumnType("decimal(8,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProdServCategoryId")
                         .HasColumnType("int");
@@ -544,7 +542,6 @@ namespace DALProject.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(8, 2)
                         .HasColumnType("decimal(8,2)");
 
                     b.HasKey("Id");
@@ -920,10 +917,6 @@ namespace DALProject.Migrations
 
             modelBuilder.Entity("DALProject.Models.OrdeHeader", b =>
                 {
-                    b.HasOne("DALProject.Models.Car", "Car")
-                        .WithMany("OrdeHeaders")
-                        .HasForeignKey("CarId");
-
                     b.HasOne("DALProject.Models.Customer", "Customer")
                         .WithMany("OrdeHeaders")
                         .HasForeignKey("CustomerId")
@@ -937,8 +930,6 @@ namespace DALProject.Migrations
                     b.HasOne("DALProject.Models.Technician", "Technician")
                         .WithMany("OrdeHeaders")
                         .HasForeignKey("TechnicianId");
-
-                    b.Navigation("Car");
 
                     b.Navigation("Customer");
 
@@ -1121,8 +1112,6 @@ namespace DALProject.Migrations
             modelBuilder.Entity("DALProject.Models.Car", b =>
                 {
                     b.Navigation("KiloMetres");
-
-                    b.Navigation("OrdeHeaders");
 
                     b.Navigation("Tickets");
                 });

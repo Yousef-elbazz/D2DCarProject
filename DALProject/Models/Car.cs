@@ -22,7 +22,8 @@ namespace DALProject.Models
 
         public string? Description { get; set; }
 
-        
+        public virtual ICollection<OrdeHeader> OrdeHeaders { get; set; } = new HashSet<OrdeHeader>();
+
         public virtual ICollection<Ticket> Tickets { get; set; } = new HashSet<Ticket>();
         public virtual ICollection<KiloMetres> KiloMetres { get; set; } = new HashSet<KiloMetres>();
 

@@ -13,7 +13,7 @@ namespace DALProject.Models
     {
         public override int Id
         {
-            get => ShoppingCartId; // إعادة التوجيه إلى ShoppingCartId
+            get => ShoppingCartId; 
             set => ShoppingCartId = value;
         }
         public int ShoppingCartId { get; set; }

@@ -2,8 +2,14 @@
 
 <div class="container px-4 px-lg-5 mt-5">
     <!-- كارت كبير يحتوي على كروت أصغر مع العنوان داخل الكارت الكبير -->
-    <div class="card large-card mb-5" style="background-color: #fff; color: black;">
+    <div class="card large-card mb-5">
         <div class="card-body">
+            <!-- قسم بخلفية سوداء داخل الكارت الكبير -->
+            <div class="black-section mx-auto mb-4 text-center">
+                <h1 class="text-white fw-bold mb-2">Special Offers</h1>
+                <p class="text-white mb-0">Discover exclusive deals and limited-time discounts on our top-rated services and parts.</p>
+            </div>
+
             <!-- العنوان داخل الكارت الكبير -->
             <h1 class="text-center text-black fw-bold">Our Products</h1>
             <h3 class="text-center text-black mb-4">Services and Parts</h3>
@@ -27,7 +33,7 @@
                     {
                         <div class="col-md-3 mb-4">
                             <!-- كارت صغير داخل الكارت الكبير -->
-                            <div class="card small-card" style="background-color: #fff; color: black;">
+                            <div class="card small-card">
                                 <a href="/CustomerPS/Details/@service.Id">
                                     <img class="card-img-top rounded-top custom-img" src="~/@service.Img" alt="Service Image" />
                                 </a>
@@ -54,7 +60,7 @@
                     {
                         <div class="col-md-3 mb-4">
                             <!-- كارت صغير داخل الكارت الكبير -->
-                            <div class="card small-card" style="background-color: #fff; color: black;">
+                            <div class="card small-card">
                                 <a href="/CustomerPS/Details/@part.Id">
                                     <img class="card-img-top rounded-top custom-img" src="~/@part.Img" alt="Part Image" />
                                 </a>
@@ -85,81 +91,31 @@
 
     <!-- Custom CSS -->
     <style>
-        /* تحسين الأزرار */
-        .custom-btn {
-            transition: all 0.3s ease-in-out;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 25px;
-            background-color: #fff;
-            color: black;
-            border: 1px solid #000;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-            .custom-btn:hover {
-                background-color: #f8f8f8;
-                color: black;
-                box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
-            }
-
-        .custom-add-to-cart-btn {
-            background: linear-gradient(to right, #f8f8f8, #ddd);
-            border: 1px solid #000;
-            color: black;
-            transition: all 0.3s ease-in-out;
-        }
-
-            .custom-add-to-cart-btn:hover {
-                background: linear-gradient(to right, #e0e0e0, #bbb);
-                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            }
-
-        /* تحسين الصور */
-        .custom-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 12px;
-            transition: transform 0.3s ease;
-        }
-
-            .custom-img:hover {
-                transform: scale(1.05);
-            }
-
-        /* تحسين الكروت الصغيرة داخل الكارت الكبير */
-        .small-card {
-            border-radius: 12px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-            background-color: #fff;
-            color: black;
-        }
-
-            .small-card:hover {
-                transform: translateY(-10px);
-                box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
-            }
-
         /* تحسين الكارت الكبير */
         .large-card {
             border-radius: 12px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-            background-color: #fff;
+            background-color: #fff; /* الخلفية البيضاء داخل الكارت */
             color: black;
+            border: 2px solid black; /* إطار خارجي أسود */
+            margin-top: -50px; /* تقليل المسافة من أعلى الصفحة */
         }
 
-        /* تنسيق العناوين */
-        .fw-bold {
-            font-size: 1.2rem;
+        /* قسم بخلفية سوداء */
+        .black-section {
+            background-color: #000;
+            color: white;
+            border-radius: 12px;
+            width: 80%; /* تحديد العرض */
+            max-width: 600px; /* أقصى عرض */
+            padding: 20px; /* تقليل الحواف الداخلية */
+            font-size: 14px; /* تصغير النص */
         }
 
-        /* تحسين العناوين في الأقسام المخفية */
-        h3, h4 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: black;
-        }
+            /* محاذاة الكارت للمنتصف */
+            .black-section.mx-auto {
+                margin-left: auto;
+                margin-right: auto;
+            }
     </style>
 </head>
