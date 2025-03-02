@@ -40,8 +40,8 @@ namespace DALProject.Data.Seeding
                 var admin = new AppUser { 
                 
                   UserName = "admin",
-                  Email = "alaaayasser2022@gmail.com",
-                  Name = "Alaa"
+                  Email = "Yousef@gmail.com",
+                  Name = "Yousef"
                 
                 
                 
@@ -57,8 +57,8 @@ namespace DALProject.Data.Seeding
                 }
             
             }
-            else if (userManager.Users.Any(e=>e.Email == "alaaayasser2022@gmail.com")) {
-                var admin = userManager.Users.Where(e => e.Email == "alaaayasser2022@gmail.com").FirstOrDefault();
+            else if (userManager.Users.Any(e=>e.Email == "Yousef@gmail.com")) {
+                var admin = userManager.Users.Where(e => e.Email == "Yousef@gmail.com").FirstOrDefault();
                 if (admin != null)
                 {
 					var token = await userManager.GeneratePasswordResetTokenAsync(admin);
